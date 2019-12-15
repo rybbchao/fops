@@ -4,5 +4,5 @@
 
 ## TODO
 
-- linecount
-- checksum
+- `linecount` needs to check if the file is a binary file
+- `checksum`
