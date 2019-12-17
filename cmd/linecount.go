@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -33,27 +32,6 @@ func init() {
 	rootCmd.AddCommand(linecountCmd)
 	linecountCmd.Flags().StringP("file", "f", "", "Specify the file")
 	linecountCmd.MarkFlagRequired("file")
-}
-
-func readFile(filename string) (*os.File, error) {
-	// Handle non-existent, invalid input file
-	fi, err := os.Stat(filename)
-	if err != nil {
-		if os.IsNotExist(err) {
-			return nil, fmt.Errorf("error: No such file '%s'", filename)
-		} else {
-			return nil, err
-		}
-	}
-	if fi.IsDir() {
-		return nil, fmt.Errorf("error: Expected file got directory '%s'", filename)
-	}
-	// Open file
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	return file, nil
 }
 
 func checkLineCount(reader io.Reader) (int, error) {
