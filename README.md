@@ -11,7 +11,9 @@ This project is based on [Cobra](https://github.com/spf13/cobra).
 ```
 cmd/
     root.go
-    <othersCommand>.go
+    <commands>.go
+pkg/
+tests/
 main.go
 ```
 
