@@ -39,10 +39,12 @@ go test ./...
 
 ## Build
 
-```
-go build -o fops
+```bash
+chmod +x build.sh
+./build.sh $version
 ```
 
 ## TODO
 
 - `linecount` needs to check if the file is a binary file
+- `Travis-ci` auto release when adding a new git tag
