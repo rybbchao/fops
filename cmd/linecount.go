@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/rybbchao/fops/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -12,8 +13,8 @@ var linecountCmd = &cobra.Command{
 	Use:   "linecount",
 	Short: "Print line count of file",
 	Run: func(cmd *cobra.Command, args []string) {
-		filename, _ := cmd.Flags().GetString("file")
-		file, err := readFile(filename)
+		filepath, _ := cmd.Flags().GetString("file")
+		file, err := pkg.ReadFile(filepath)
 		if err != nil {
 			fmt.Println(err)
 			return

@@ -9,6 +9,7 @@ import (
 	"hash"
 	"io"
 
+	"github.com/rybbchao/fops/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -23,12 +24,12 @@ var checksumCmd = &cobra.Command{
 	Use:   "checksum",
 	Short: "Print checksum of file",
 	Run: func(cmd *cobra.Command, args []string) {
-		filename, err := cmd.Flags().GetString("file")
+		filepath, err := cmd.Flags().GetString("file")
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		file, err := readFile(filename)
+		file, err := pkg.ReadFile(filepath)
 		if err != nil {
 			fmt.Println(err)
 			return
