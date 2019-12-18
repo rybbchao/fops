@@ -12,20 +12,19 @@ import (
 var linecountCmd = &cobra.Command{
 	Use:   "linecount",
 	Short: "Print line count of file",
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		filepath, _ := cmd.Flags().GetString("file")
 		file, err := pkg.ReadFile(filepath)
 		if err != nil {
-			fmt.Println(err)
-			return
+			return err
 		}
 		defer file.Close()
 		count, err := checkLineCount(file)
 		if err != nil {
-			fmt.Println(err)
-			return
+			return err
 		}
 		fmt.Println(count)
+		return nil
 	},
 }
 

@@ -23,16 +23,14 @@ var mapHashFunc = map[string]func() hash.Hash{
 var checksumCmd = &cobra.Command{
 	Use:   "checksum",
 	Short: "Print checksum of file",
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		filepath, err := cmd.Flags().GetString("file")
 		if err != nil {
-			fmt.Println(err)
-			return
+			return err
 		}
 		file, err := pkg.ReadFile(filepath)
 		if err != nil {
-			fmt.Println(err)
-			return
+			return err
 		}
 		defer file.Close()
 
@@ -44,16 +42,15 @@ var checksumCmd = &cobra.Command{
 				if check {
 					val, err := checksum(file, mapHashFunc[hashName]())
 					if err != nil {
-						fmt.Println(err)
-						return
+						return err
 					}
 					fmt.Println(hashName + ":\t" + val)
 				}
 			} else {
-				fmt.Println(err)
-				return
+				return err
 			}
 		}
+		return nil
 	},
 }
 
