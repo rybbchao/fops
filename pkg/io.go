@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 )
 
@@ -24,4 +25,21 @@ func ReadFile(filepath string) (*os.File, error) {
 		return nil, err
 	}
 	return file, nil
+}
+
+func GetMIMEType(filepath string) (string, error) {
+	file, err := os.Open(filepath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	buffer := make([]byte, 512)
+
+	_, err = file.Read(buffer)
+	if err != nil {
+		return "", err
+	}
+
+	return http.DetectContentType(buffer), nil
 }
