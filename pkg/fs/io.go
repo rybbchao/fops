@@ -2,8 +2,9 @@ package fs
 
 import (
 	"fmt"
-	"net/http"
 	"os"
+
+	"github.com/gabriel-vasile/mimetype"
 )
 
 func ReadFile(filepath string) (*os.File, error) {
@@ -28,18 +29,9 @@ func ReadFile(filepath string) (*os.File, error) {
 }
 
 func GetMIMEType(filepath string) (string, error) {
-	file, err := os.Open(filepath)
+	mime, err := mimetype.DetectFile(filepath)
 	if err != nil {
 		return "", err
 	}
-	defer file.Close()
-
-	buffer := make([]byte, 512)
-
-	_, err = file.Read(buffer)
-	if err != nil {
-		return "", err
-	}
-
-	return http.DetectContentType(buffer), nil
+	return mime.String(), nil
 }
