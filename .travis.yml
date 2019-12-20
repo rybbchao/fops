@@ -8,7 +8,7 @@ env:
 - GO111MODULE=on
 script:
 - go test ./...
-- ./build.sh $(git rev-parse --abbrev-ref HEAD)
+- ./build.sh $(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
 deploy:
   provider: releases
   api_key:
