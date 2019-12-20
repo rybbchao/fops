@@ -6,10 +6,9 @@ go:
 - 1.11.x
 env:
 - GO111MODULE=on
-- VERSION=$(git rev-parse --abbrev-ref HEAD)
 script:
 - go test ./...
-- ./build.sh $VERSION
+- ./build.sh $(git rev-parse --abbrev-ref HEAD)
 deploy:
   provider: releases
   api_key:
