@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"hash"
 	"io"
+	"os"
 
 	"github.com/rybbchao/fops/pkg/fs"
 	"github.com/spf13/cobra"
@@ -28,7 +29,11 @@ var checksumCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		file, err := fs.ReadFile(filepath)
+		err = fs.IsValidFile(filepath)
+		if err != nil {
+			return err
+		}
+		file, err := os.Open(filepath)
 		if err != nil {
 			return err
 		}
