@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/rybbchao/fops/pkg"
+	"github.com/rybbchao/fops/pkg/fs"
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +12,7 @@ var mimeCmd = &cobra.Command{
 	Short: "Print MIME type of file",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		filepath, _ := cmd.Flags().GetString("file")
-		file, err := pkg.ReadFile(filepath)
+		file, err := fs.ReadFile(filepath)
 		if err != nil {
 			return err
 		}
@@ -33,5 +33,5 @@ func init() {
 }
 
 func getMIMEType(filepath string) (string, error) {
-	return pkg.GetMIMEType(filepath)
+	return fs.GetMIMEType(filepath)
 }

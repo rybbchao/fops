@@ -9,7 +9,7 @@ import (
 	"hash"
 	"io"
 
-	"github.com/rybbchao/fops/pkg"
+	"github.com/rybbchao/fops/pkg/fs"
 	"github.com/spf13/cobra"
 )
 
@@ -28,7 +28,7 @@ var checksumCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		file, err := pkg.ReadFile(filepath)
+		file, err := fs.ReadFile(filepath)
 		if err != nil {
 			return err
 		}

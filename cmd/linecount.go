@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/rybbchao/fops/pkg"
+	"github.com/rybbchao/fops/pkg/fs"
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +14,7 @@ var linecountCmd = &cobra.Command{
 	Short: "Print line count of file",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		filepath, _ := cmd.Flags().GetString("file")
-		file, err := pkg.ReadFile(filepath)
+		file, err := fs.ReadFile(filepath)
 		if err != nil {
 			return err
 		}
