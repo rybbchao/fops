@@ -1,3 +1,3 @@
 #!/bin/bash
 
-go build -ldflags "-X main.Version=$1" -o fops
+go build -ldflags "-X github.com/rybbchao/fops/cmd.Version=$1" -o fops
