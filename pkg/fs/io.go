@@ -28,6 +28,14 @@ func ReadFile(filepath string) (*os.File, error) {
 	return file, nil
 }
 
+func IsBinary(filepath string) (bool, error) {
+	mime, err := mimetype.DetectFile(filepath)
+	if err != nil {
+		return false, err
+	}
+	return mime.Is("application/x-mach-binary"), nil
+}
+
 func GetMIMEType(filepath string) (string, error) {
 	mime, err := mimetype.DetectFile(filepath)
 	if err != nil {
