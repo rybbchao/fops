@@ -6,5 +6,15 @@ go:
 - 1.11.x
 env:
 - GO111MODULE=on
+- VERSION=$(git rev-parse --abbrev-ref HEAD)
 script:
 - go test ./...
+- ./build.sh $VERSION
+deploy:
+  provider: releases
+  api_key:
+    secure: KAwFzPjB0cVnxHLT5A9XH0gWfSuJFZrQWDIGlCaWaheJeFnNpo+hj+Gq2o1fnWHL9eMjezVEEHiyS25/qmxiI5O8xuJybz2LqiX39ZaobPLP9xvbQq4CCzpO/Km7yldKSDI5XiiMFepu0cb0YcMoQFUr3jvO8kWIJ9TPS14LGayYTjMxyUhIkjtTnnxd9+DDsPusBOiKto6hA4NMxyEodjLxOSrx/Uf3iMwvmcp6DtUhaXB23RBYh52NZO+raIe9PxQzZXY0Ha+V5EeJolHSnsEuF5/mi7Q8oRRhOtX60gRFjivlqNRilkhBLq7FfejSqvjn7gLJXdP0o8q3nuvfhZmfcUiMZLAfR2lRZkrKtH8NuFMtQUv3VACTCSQ1DBZQscLGFmYxSRxtvAnj4nmbPVRhH2A7XO5jpLQ+xOfWjkBHKWOKf/uMn2JdLF2uwzzsGPVWMextNy6dE7+1OgQwH58kH/c7M48WbbNb0JwIN6e/jimIfXMxgG3vT5jj1BP6xToZ3/NVCpfhG0vuroxhz1ZLOb5lKjNwzCRi2yNjlrm0PDNUJQ7gO9oneqq27tOPNxO4tM6q2sb7O0lBQOJgG0wKs0ljbch/x430ZJA0BONpIxtsGCbtuT/eyrZi2WyL7dN95vWxYnFB77tKBB/E8kLHgrkP8xqVORWZ4TRAD88=
+  file: fops
+  on:
+    repo: rybbchao/fops
+    tags: true

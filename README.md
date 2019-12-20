@@ -48,7 +48,3 @@ go test ./...
 chmod +x build.sh
 ./build.sh $version
 ```
-
-## TODO
-
-- `Travis-ci` auto release when adding a new git tag
