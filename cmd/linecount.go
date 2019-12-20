@@ -19,6 +19,13 @@ var linecountCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		isBinary, err := fs.IsBinary(filepath)
+		if err != nil {
+			return err
+		}
+		if isBinary {
+			return fmt.Errorf("Cannot do linecount for binary file '%s'", filepath)
+		}
 		file, err := os.Open(filepath)
 		if err != nil {
 			return err
