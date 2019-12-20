@@ -30,11 +30,3 @@ func IsBinary(filepath string) (bool, error) {
 	}
 	return mime.Is("application/x-mach-binary"), nil
 }
-
-func GetMIMEType(filepath string) (string, error) {
-	mime, err := mimetype.DetectFile(filepath)
-	if err != nil {
-		return "", err
-	}
-	return mime.String(), nil
-}
