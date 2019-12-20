@@ -52,4 +52,3 @@ chmod +x build.sh
 
 - `linecount` needs to check if the file is a binary file
 - `Travis-ci` auto release when adding a new git tag
-- `pkg/io.go` needs tests
