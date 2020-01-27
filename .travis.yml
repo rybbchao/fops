@@ -20,5 +20,21 @@ deploy:
     repo: rybbchao/fops
     tags: true
 before_install:
-- openssl aes-256-cbc -K $encrypted_2db15d2523a7_key -iv $encrypted_2db15d2523a7_iv
-  -in .travis/github_deploy_key.enc -out github_deploy_key -d
+- |
+    declare -r SSH_FILE="$(mktemp -u $HOME/.ssh/XXXXX)"
+
+    # Decrypt the file containing the private key
+
+    openssl aes-256-cbc \
+      -K $encrypted_2db15d2523a7_key \
+      -iv $encrypted_2db15d2523a7_iv \
+      -in ".travis/github_deploy_key.enc" \
+      -out "$SSH_FILE" -d
+
+    # Enable SSH authentication
+
+    chmod 600 "$SSH_FILE" \
+      && printf "%s\n" \
+          "Host github.com" \
+          "  IdentityFile $SSH_FILE" \
+          "  LogLevel ERROR" >> ~/.ssh/config
