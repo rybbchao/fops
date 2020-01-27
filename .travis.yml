@@ -2,19 +2,23 @@ language: go
 go:
 - 1.11.x
 os:
-  - osx
+- osx
 dist: trusty
 env:
-- GO111MODULE=on
+  matrix:
+  - GO111MODULE=on
+  global:
+    secure: QLqlopPtFmORIoVNgog3BywJlcLbLb3NwWyuWTd3dlhk3gjIcKxnLXVi+glbzAVJ4c3yEzMVLWyWcHU7saaVJ8M0w54gKqRtJlzv+RxU/zPbM1PizzFb0yUpq6spigh0wbaQHEVj2Gan8ZrHRg3i7orzouQGmVj9zhaeUDSSPet5XgAXFkQvvsQwN2XHU8n+nkhONbsgWg1LtJZ4vVqcEcK9yUDLS8bbUyOs4hWeGleVHMkrlKua51xYZjmMuWHQlIvrm6Gkj8LU9xgMxT9gu74SndO+mTPlqyDFZan13EDwjGhz8z4YSbT6ItwgFm3fMdyYK/6RzQNADAA5857Ojox9LILoFuG5MuesX5S8WLiPogFC3kL4zmYXbJoPs66ysdK9ZxHngHdUM63N+nek5UwKAqixBfp7xt5Xf3xGVpnIv23UDBf+ndJ9KAj5i4N9skwjYutq1uA60axvEE+tQXZqCTYCUP/7Q4Te9evrMPgSLoy8PlEiQQFgrHKzzztE6Bk/bkpIV6SQhNuR0ReDl5/spqxyoboZezqGUTY8Om29gYOeWTx/Ajt+6fDm3yBt8Z39t9/aSejV4707lxLYrFgkJ1x5PSPH4LfjgRY1tlT+zkUnW3MSn7Y2Ck4g9Vyq1/2+8/cS0uiQEe1m9GP6ZZ05pidlHFOCEzucmURQTKk=
 script:
 - go test ./...
-- ./build.sh $(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
+- "./build.sh $(git describe --exact-match --tags $(git log -n1 --pretty='%h'))"
 deploy:
   provider: releases
-  api_key:
-    secure: KAwFzPjB0cVnxHLT5A9XH0gWfSuJFZrQWDIGlCaWaheJeFnNpo+hj+Gq2o1fnWHL9eMjezVEEHiyS25/qmxiI5O8xuJybz2LqiX39ZaobPLP9xvbQq4CCzpO/Km7yldKSDI5XiiMFepu0cb0YcMoQFUr3jvO8kWIJ9TPS14LGayYTjMxyUhIkjtTnnxd9+DDsPusBOiKto6hA4NMxyEodjLxOSrx/Uf3iMwvmcp6DtUhaXB23RBYh52NZO+raIe9PxQzZXY0Ha+V5EeJolHSnsEuF5/mi7Q8oRRhOtX60gRFjivlqNRilkhBLq7FfejSqvjn7gLJXdP0o8q3nuvfhZmfcUiMZLAfR2lRZkrKtH8NuFMtQUv3VACTCSQ1DBZQscLGFmYxSRxtvAnj4nmbPVRhH2A7XO5jpLQ+xOfWjkBHKWOKf/uMn2JdLF2uwzzsGPVWMextNy6dE7+1OgQwH58kH/c7M48WbbNb0JwIN6e/jimIfXMxgG3vT5jj1BP6xToZ3/NVCpfhG0vuroxhz1ZLOb5lKjNwzCRi2yNjlrm0PDNUJQ7gO9oneqq27tOPNxO4tM6q2sb7O0lBQOJgG0wKs0ljbch/x430ZJA0BONpIxtsGCbtuT/eyrZi2WyL7dN95vWxYnFB77tKBB/E8kLHgrkP8xqVORWZ4TRAD88=
   file: fops
   skip_cleanup: true
   on:
     repo: rybbchao/fops
     tags: true
+before_install:
+- openssl aes-256-cbc -K $encrypted_2db15d2523a7_key -iv $encrypted_2db15d2523a7_iv
+  -in .travis/github_deploy_key.enc -out github_deploy_key -d
